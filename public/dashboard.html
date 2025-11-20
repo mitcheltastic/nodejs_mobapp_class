@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Dashboard</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-link active" data-tab="dashboard-tab">
+          <span class="icon">📊</span> Dashboard
+        </button>
+        <button class="nav-link" data-tab="crud-tab">
+          <span class="icon">📋</span> Data Mahasiswa
+        </button>
+      </nav>
+      <button class="btn btn-logout" onclick="logout()">Logout</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- AppBar -->
+      <header class="appbar">
+        <h1 id="page-title">Dashboard</h1>
+        <div class="appbar-actions">
+          <button class="btn-logout-mobile" onclick="logout()">🚪 Logout</button>
+        </div>
+      </header>
+
+      <!-- Content Area -->
+      <div class="content-area">
+
+        <!-- Tab 1: Dashboard -->
+        <div id="dashboard-tab" class="tab-content active">
+          <div class="dashboard-card">
+            <h2>Welcome!</h2>
+            <p>This is your main dashboard screen.</p>
+          </div>
+
+          <div class="cards-grid">
+            <div class="card">
+              <div class="card-icon">👤</div>
+              <h3>Profile</h3>
+              <p>View and edit your profile</p>
+            </div>
+            <div class="card">
+              <div class="card-icon">⚙️</div>
+              <h3>Settings</h3>
+              <p>App preferences and notifications</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: CRUD Data Mahasiswa -->
+        <div id="crud-tab" class="tab-content">
+          <div class="crud-header">
+            <h2>Data Mahasiswa</h2>
+            <button class="btn btn-primary" onclick="openAddForm()">+ Tambah Data</button>
+          </div>
+
+          <div id="message-crud" class="message"></div>
+
+          <div class="table-responsive">
+            <table id="mahasiswaTable">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama</th>
+                  <th>NIM</th>
+                  <th>Kelas</th>
+                  <th>Nilai</th>
+                  <th>Bidang</th>
+                  <th>Gender</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Data akan dimuat via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Form -->
+  <div id="formModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeForm()">&times;</span>
+      <h2 id="form-title">Tambah Mahasiswa</h2>
+
+      <form id="mahasiswaForm">
+        <input type="hidden" id="mahasiswaId">
+
+        <div class="form-group">
+          <label>Nama</label>
+          <input type="text" id="nama" required>
+        </div>
+
+        <div class="form-group">
+          <label>NIM</label>
+          <input type="number" id="nim" required>
+        </div>
+
+        <div class="form-group">
+          <label>Kelas</label>
+          <select id="kelas" required>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Nilai <span id="nilaiDisplay">(0)</span></label>
+          <input type="range" id="nilai" min="0" max="100" value="0" 
+                 oninput="document.getElementById('nilaiDisplay').textContent = '(' + this.value + ')'">
+        </div>
+
+        <div class="form-group">
+          <label>Bidang</label>
+          <select id="bidang" required>
+            <option value="Machine Learning">Machine Learning</option>
+            <option value="Data Sains">Data Sains</option>
+            <option value="Rekayasa Perangkat Lunak">Rekayasa Perangkat Lunak</option>
+            <option value="Jaringan Komputer">Jaringan Komputer</option>
+            <option value="Multimedia">Multimedia</option>
+            <option value="Sistem Informasi">Sistem Informasi</option>
+            <option value="Komputasi Awan">Komputasi Awan</option>
+            <option value="Keamanan Siber">Keamanan Siber</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Gender</label>
+          <select id="gender" required>
+            <option value="Pria">Pria</option>
+            <option value="Wanita">Wanita</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Simpan</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirm Dialog -->
+  <div id="confirmDialog" class="modal">
+    <div class="modal-content modal-confirm">
+      <h2>Konfirmasi</h2>
+      <p id="confirmMessage"></p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" onclick="closeConfirm()">Batal</button>
+        <button class="btn btn-danger" id="confirmBtn">Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
